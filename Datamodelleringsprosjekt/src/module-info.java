@@ -6,4 +6,5 @@
  *
  */
 module datamodelleringsprosjekt {
+	requires java.sql;
 }
