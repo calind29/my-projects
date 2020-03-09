@@ -1,0 +1,9 @@
+/**
+ * 
+ */
+/**
+ * @author carlaxellind
+ *
+ */
+module datamodelleringsprosjekt {
+}
