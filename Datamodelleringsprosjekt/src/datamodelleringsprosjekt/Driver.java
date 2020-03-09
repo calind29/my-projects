@@ -8,7 +8,7 @@ public class Driver {
 		// TODO Auto-generated method stub
 		try {
 			//1. Get a connection to database
-			Connection myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/imdb", "root", "cali2901");
+			Connection myConn = DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no:3306/calind_imdb", "calind_root", "root");
 			
 			//2. Create a statement
 			Statement myStmt = myConn.createStatement();
