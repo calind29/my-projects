@@ -26,11 +26,6 @@ public class Rolle extends DBConn {
 	}
 	
 	
-	public void refresh () {
-        GetRolle ();
-    }
-	
-	
 	public static void main(String[] args) {
 		Rolle test = new Rolle("Trond Vatten");
 		test.GetRolle();
