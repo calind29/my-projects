@@ -17,7 +17,7 @@ public class Driver {
 					
 			//4. Process the result set
 			while (myRs.next()) {
-				System.out.println(myRs.getString("Tittel") + ", " + myRs.getString(""));
+				System.out.println(myRs.getString("Tittel") + ", " + myRs.getString("Utgivelsesår"));
 			}
 		}
 		catch (Exception exc) {
