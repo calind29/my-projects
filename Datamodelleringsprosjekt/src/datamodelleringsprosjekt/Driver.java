@@ -81,7 +81,7 @@ public class Driver {
 				}
 			}
 			
-			//Trond prøver litt på oppgave 4:
+			//Trond prï¿½ver litt pï¿½ oppgave 4: oppgave 4 er ferdig, hilsen Carl
 			else if (todo == 6) {
 				try {
 					Scanner myScanner = new Scanner(System.in);
@@ -114,7 +114,7 @@ public class Driver {
 						counter+=1;
 					}
 					
-					String query = "insert into Media (MediaID, Tittel, Lengde, Utgivelsesår, Lanseringsdato, Beskrivelse, Form, Utgitt) values (" + counter + ", '"
+					String query = "insert into Media (MediaID, Tittel, Lengde, Utgivelsesï¿½r, Lanseringsdato, Beskrivelse, Form, Utgitt) values (" + counter + ", '"
 							+ title + "', " + length + ", " + year + ", " + date + ", '" + description + "', '" + form + "', " + vid + ")";
 					
 					
@@ -134,13 +134,29 @@ public class Driver {
 			//Finne hvilke filmselskap som lager flest filmer innen hver sjanger.
 			else if (todo == 3) {
 				try {
-					
+					Scanner myScanner = new Scanner(System.in);
+					System.out.println("Name a genre: ");
+					String sjanger = myScanner.nextLine();
+					String query = "Select URL, Count(SelskapID) as AntallFilmerIDenneSjangeren from Selskap natural join EidAv "
+							+ "natural join Media "
+							+ "natural join SjangerIFilm "
+							+ "inner join Sjanger on SjangerIFilm.SjangerID = Sjanger.SjangerID "
+							+ "where Sjanger.Navn = '" + sjanger + "'"
+							+ "group by SelskapID";
+					ResultSet r3 = myStmt.executeQuery(query);
+					if (!r3.next()) {
+						myStmt.executeQuery("feil");
+					}
+					System.out.println("The movie company which has the most movies in the genre " + sjanger + " is:");
+					System.out.println(r3.getString("URL") + " with " + r3.getInt("AntallFilmerIDenneSjangeren") + " movie(s)");
+					while (r3.next()) {
+						System.out.println(r3.getString("URL") + " with " + r3.getInt("AntallFilmerIDenneSjangeren") + " movie(s)");
+					}
+					myScanner.close();
 				}
 				catch (Exception e) {
-					System.out.println("Error " + e);
+					System.out.println("No film companies makes this genre, error: "+ e);
 				}
-
-				
 			}
 			
 			//Sette inn en ny film med regissÃ¸r, manusforfatter, skuespiller og det som hÃ¸rer med.
