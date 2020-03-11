@@ -96,7 +96,6 @@ public class Driver {
 			//Sette inn en ny film med regissør, manusforfatter, skuespiller og det som hører med.
 			else if (todo == 4) {
 				try {
-				
 					Scanner myScn = new Scanner(System.in);
 					
 					System.out.println("Enter Title, length of movie, Release year, Release date, Description, Form, Published, Actor, Role, Director, writer: ");
@@ -119,45 +118,53 @@ public class Driver {
 						mediaCounter+=1;
 					}					
 	
-					String sq1 = "insert into Media" + "(MediaID, Tittel, Lengde, Utgivelsesår, Lanseringsdato, Beskrivelse, Form, Utgitt)" + " values ('"+mediaCounter+"','"+t+"','"+l+"','"+RY+"','"+RD+"','"+d+"','"+f+"','"+p+"')";
-					myStmt.executeUpdate(sq1);
+					String sq = "insert into Media" + "(MediaID, Tittel, Lengde, Utgivelsesår, Lanseringsdato, Beskrivelse, Form, Utgitt)" + " values ('"+mediaCounter+"','"+t+"','"+l+"','"+RY+"','"+RD+"','"+d+"','"+f+"','"+p+"')";
 					
 					ResultSet myRs4 = myStmt.executeQuery("select * from Person");
 					int personCounter = 1;
 					int directorCounter = 1;
-					int writerCounter =1;
+					int writerCounter = 1;
+					int c = 1;
 					
 					while(myRs4.next()) {
 						personCounter+=1;
 						directorCounter+=1;
 						writerCounter+=1;
+						c+=1;
 						
-						String person = myRs4.getString("FulltNavn");
-						if (actor == person) {
+						if (actor.equals(myRs4.getString("FulltNavn"))) {
 							personCounter = myRs4.getInt("PersonID");
 						}
 						
-						if (director == person) {
+						if (director.equals(myRs4.getString("FulltNavn"))) {
 							directorCounter = myRs4.getInt("PersonID");
 						}
 						
-						if (writer == person) {
+						if (writer.equals(myRs4.getString("FulltNavn"))) {
 							writerCounter = myRs4.getInt("PersonID");
 						}
-						
-						String sq2 = "insert into Skuespiller" + "(MediaID, PersonID, Rolle)" + " values ('"+mediaCounter+"','"+personCounter+"','"+role+"')";
-						myStmt.executeUpdate(sq2);
-						
-						String sq3 = "insert into Regissor" + "(MediaID, PersonID)" + " values ('"+mediaCounter+"','"+directorCounter+"')";
-						myStmt.executeUpdate(sq3);
-						
-						String sq4 = "insert into Manusforfatter" + "(MediaID, PersonID)" + " values ('"+mediaCounter+"','"+writerCounter+"')";
-						myStmt.executeUpdate(sq4);
 					}
+					
+					if (personCounter == c || directorCounter == c || writerCounter == c) {
+						System.out.println("Enter birth year, birth country: ");
+						String by = myScn.nextLine();
+						String bc = myScn.nextLine();
+						String sq1 = "insert into Person" + "(PersonID, FulltNavn, Fødselsår, Fødselsland)" + " values ('"+personCounter+"', '"+actor+"', '"+by+"','"+bc+"')";
+						myStmt.executeUpdate(sq1);
+					}
+					
+					String sq2 = "insert into Skuespiller" + "(MediaID, PersonID, Rolle)" + " values ('"+mediaCounter+"','"+personCounter+"','"+role+"')";
+					String sq3 = "insert into Regissor" + "(MediaID, PersonID)" + " values ('"+mediaCounter+"','"+directorCounter+"')";
+					String sq4 = "insert into Manusforfatter" + "(MediaID, PersonID)" + " values ('"+mediaCounter+"','"+writerCounter+"')";
+					
+					myStmt.executeUpdate(sq);
+					myStmt.executeUpdate(sq2);
+					myStmt.executeUpdate(sq3);
+					myStmt.executeUpdate(sq4);
 					
 					System.out.println("Insert complete");
 					myScn.close();
-						
+					
 					}
 				catch (Exception e) {
 					System.out.println("Couldn't add movie " + e);
