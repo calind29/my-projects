@@ -25,7 +25,7 @@ public class Driver {
 			//5: Hva ønsker du å gjøre?
 			Scanner myScann = new Scanner(System.in);
 			System.out.println("What do you wish to do, answer with number 1 to 5: "
-					+ "\n 1 - Find all the roles an actor has pAlayed. "
+					+ "\n 1 - Find all the roles an actor has played. "
 					+ "\n 2 - Find what movies a given actor has played in. "
 					+ "\n 3 - Find the company who has made the most movies in a giveen genre"
 					+ "\n 4 - Add a new movie with director, screenwriter, actor and everything else. "
