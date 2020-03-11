@@ -39,12 +39,13 @@ public class Driver {
 					System.out.println("Enter actor");
 					String fulltNavn = myScanner.nextLine();
 					
-					String query = "select rolle from skuespiller natural join where FulltNavn = " + fulltNavn;
+					String query = "select Rolle from Skuespiller natural join Person where FulltNavn = '" + fulltNavn + "'";
 					
 					ResultSet r1 = myStmt.executeQuery(query);
 					while (r1.next()) {
 						System.out.println(r1.getString("Rolle"));
 					}
+					myScanner.close();
 					
 				}
 				catch (Exception e) {
