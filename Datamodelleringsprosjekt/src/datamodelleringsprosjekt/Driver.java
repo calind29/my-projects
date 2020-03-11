@@ -32,7 +32,6 @@ public class Driver {
 					+ "\n 5 - Add a new review of an episode in a serie.");
 			
 			int todo = myScann.nextInt();
-			myScann.close();
 			
 			//Finn navnet på alle rollene en gitt skuespiller har.
 			if (todo == 1) {
@@ -88,7 +87,7 @@ public class Driver {
 					
 				}
 				catch (Exception e) {
-					
+					System.out.println("Error " + e);
 				}
 
 				
@@ -100,7 +99,7 @@ public class Driver {
 				
 					Scanner myScn = new Scanner(System.in);
 					
-					System.out.println("Enter Title, length of movie, Release year, Release date, Description, Form, Published:");
+					System.out.println("Enter Title, length of movie, Release year, Release date, Description, Form, Published, Actor, Role, Director, writer: ");
 					String t = myScn.nextLine();
 					String l = myScn.nextLine();
 					String RY = myScn.nextLine();
@@ -108,20 +107,55 @@ public class Driver {
 					String d = myScn.nextLine();
 					String f = myScn.nextLine();
 					String p = myScn.nextLine();
+					String actor = myScn.nextLine();
+					String role = myScn.nextLine();
+					String director = myScn.nextLine();
+					String writer = myScn.nextLine();
 					
 					ResultSet myRs3 = myStmt.executeQuery("select * from Media");
-					int counter = 1;
+					int mediaCounter = 1;
 					
 					while(myRs3.next()) {
-						counter+=1;
+						mediaCounter+=1;
 					}					
 	
-					String sq1 = "insert into Media" + "(MediaID, Tittel, Lengde, Utgivelsesår, Lanseringsdato, Beskrivelse, Form, Utgitt)" + " values ('"+counter+"','"+t+"','"+l+"','"+RY+"','"+RD+"','"+d+"','"+f+"','"+p+"')";
-					
+					String sq1 = "insert into Media" + "(MediaID, Tittel, Lengde, Utgivelsesår, Lanseringsdato, Beskrivelse, Form, Utgitt)" + " values ('"+mediaCounter+"','"+t+"','"+l+"','"+RY+"','"+RD+"','"+d+"','"+f+"','"+p+"')";
 					myStmt.executeUpdate(sq1);
 					
-					System.out.println("Insert complete");
+					ResultSet myRs4 = myStmt.executeQuery("select * from Person");
+					int personCounter = 1;
+					int directorCounter = 1;
+					int writerCounter =1;
 					
+					while(myRs4.next()) {
+						personCounter+=1;
+						directorCounter+=1;
+						writerCounter+=1;
+						
+						String person = myRs4.getString("FulltNavn");
+						if (actor == person) {
+							personCounter = myRs4.getInt("PersonID");
+						}
+						
+						if (director == person) {
+							directorCounter = myRs4.getInt("PersonID");
+						}
+						
+						if (writer == person) {
+							writerCounter = myRs4.getInt("PersonID");
+						}
+						
+						String sq2 = "insert into Skuespiller" + "(MediaID, PersonID, Rolle)" + " values ('"+mediaCounter+"','"+personCounter+"','"+role+"')";
+						myStmt.executeUpdate(sq2);
+						
+						String sq3 = "insert into Regissor" + "(MediaID, PersonID)" + " values ('"+mediaCounter+"','"+directorCounter+"')";
+						myStmt.executeUpdate(sq3);
+						
+						String sq4 = "insert into Manusforfatter" + "(MediaID, PersonID)" + " values ('"+mediaCounter+"','"+writerCounter+"')";
+						myStmt.executeUpdate(sq4);
+					}
+					
+					System.out.println("Insert complete");
 					myScn.close();
 						
 					}
@@ -136,7 +170,7 @@ public class Driver {
 					
 				}
 				catch (Exception e) {
-					
+					System.out.println("Error " + e);
 				}
 				
 			}
