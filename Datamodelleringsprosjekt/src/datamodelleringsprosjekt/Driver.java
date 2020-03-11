@@ -32,7 +32,9 @@ public class Driver {
 					+ "\n 5 - Add a new review of an episode in a serie.");
 			
 			int todo = myScann.nextInt();
+			myScann.close();
 			
+			//Finn navnet på alle rollene en gitt skuespiller har.
 			if (todo == 1) {
 				try {
 					Scanner myScanner = new Scanner(System.in);
@@ -54,55 +56,88 @@ public class Driver {
 				
 			}
 			
+			//Finn hvilke filmer som en gitt skuespiller opptrer i.
 			else if (todo == 2) {
-				//6: Filmer en gitt skuespiller opptrer i
-				Scanner myScanner = new Scanner(System.in);
-				System.out.println("Enter actor");
-				ResultSet personID;
-				
-				String actor = myScanner.nextLine();
-				
-				ResultSet myRs1 = myStmt.executeQuery("select * from Person");
-				String name = myRs1.getString("FulltNavn");
-				
-				ResultSet myRs2 = myStmt.executeQuery("select * from Skuespiller");
-				String ID = myRs2.getString("FulltNavn");
-				if(name.equals(actor))
-				{
+				try {
+					//6: Filmer en gitt skuespiller opptrer i
+					Scanner myScanner = new Scanner(System.in);
+					System.out.println("Enter actor");
+					ResultSet personID;
 					
+					String actor = myScanner.nextLine();
+					
+					ResultSet myRs1 = myStmt.executeQuery("select * from Person");
+					String name = myRs1.getString("FulltNavn");
+					
+					ResultSet myRs2 = myStmt.executeQuery("select * from Skuespiller");
+					String ID = myRs2.getString("FulltNavn");
+					if(name.equals(actor))
+					{
+						
+					}
+					myScanner.close();
 				}
-				myScanner.close();
+				catch (Exception e) {
+					System.out.println("Couldn't find actors " + e);
+				}
 			}
 			
+			//Finne hvilke filmselskap som lager flest filmer innen hver sjanger.
 			else if (todo == 3) {
-				Scanner myScn = new Scanner(System.in);
-				
-				System.out.println("Enter Title, length of movie, Release year, Release date, Description, Form, Published:");
-				String t = myScn.nextLine();
-				String l = myScn.nextLine();
-				String RY = myScn.nextLine();
-				String RD = myScn.nextLine();
-				String d = myScn.nextLine();
-				String f = myScn.nextLine();
-				String p = myScn.nextLine();
-				
-				ResultSet myRs3 = myStmt.executeQuery("select * from Media");
-				int counter = 1;
-				
-				while(myRs3.next()) {
-					counter+=1;
+				try {
 					
 				}
-				
-				String sq1 = "insert into Media" + "(MediaID, Tittel, Lengde, Utgivelsesår, Lanseringsdato, Beskrivelse, Form, Utgitt)" + " values ('"+counter+"','"+t+"','"+l+"','"+RY+"','"+RD+"','"+d+"','"+f+"','"+p+"')";
-				
-				myStmt.executeUpdate(sq1);
-				
-				System.out.println("Insert complete");
+				catch (Exception e) {
+					
+				}
+
 				
 			}
 			
+			//Sette inn en ny film med regissør, manusforfatter, skuespiller og det som hører med.
 			else if (todo == 4) {
+				try {
+				
+					Scanner myScn = new Scanner(System.in);
+					
+					System.out.println("Enter Title, length of movie, Release year, Release date, Description, Form, Published:");
+					String t = myScn.nextLine();
+					String l = myScn.nextLine();
+					String RY = myScn.nextLine();
+					String RD = myScn.nextLine();
+					String d = myScn.nextLine();
+					String f = myScn.nextLine();
+					String p = myScn.nextLine();
+					
+					ResultSet myRs3 = myStmt.executeQuery("select * from Media");
+					int counter = 1;
+					
+					while(myRs3.next()) {
+						counter+=1;
+					}					
+	
+					String sq1 = "insert into Media" + "(MediaID, Tittel, Lengde, Utgivelsesår, Lanseringsdato, Beskrivelse, Form, Utgitt)" + " values ('"+counter+"','"+t+"','"+l+"','"+RY+"','"+RD+"','"+d+"','"+f+"','"+p+"')";
+					
+					myStmt.executeUpdate(sq1);
+					
+					System.out.println("Insert complete");
+					
+					myScn.close();
+						
+					}
+				catch (Exception e) {
+					System.out.println("Couldn't add movie " + e);
+				}
+			}
+			
+			//Sette inn en ny anmeldelse av en episode av en serie.
+			else if (todo == 5) {
+				try {
+					
+				}
+				catch (Exception e) {
+					
+				}
 				
 			}
 			
@@ -110,6 +145,7 @@ public class Driver {
 				System.out.println("Invalid entry");
 			}
 		}
+		
 		catch (Exception exc) {
 			exc.printStackTrace();
 		}
