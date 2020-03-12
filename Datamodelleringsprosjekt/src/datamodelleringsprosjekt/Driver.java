@@ -82,54 +82,54 @@ public class Driver {
 			}
 			
 			//Trond pr�ver litt p� oppgave 4: oppgave 4 er ferdig, hilsen Carl
-			else if (todo == 6) {
-				try {
-					Scanner myScanner = new Scanner(System.in);
-					
-					System.out.println("Enter title: ");
-					String title = myScanner.nextLine();
-					
-					System.out.println("Enter movie length: ");
-					String length = myScanner.nextLine();
-					
-					System.out.println("Enter release year: ");
-					String year = myScanner.nextLine();
-					
-					System.out.println("Enter release date (YYYYMMDD)");
-					String date = myScanner.nextLine();
-					
-					System.out.println("Enter movie description: ");
-					String description = myScanner.nextLine();
-					
-					System.out.println("Originally for TV, Cinema or Streaming? ");
-					String form = myScanner.nextLine();
-					
-					System.out.println("Released on video? True/False: ");
-					String vid = myScanner.nextLine();
-					
-					ResultSet r2 = myStmt.executeQuery("select * from Media");
-					int counter = 1;
-					
-					while(r2.next()) {
-						counter+=1;
-					}
-					
-					String query = "insert into Media (MediaID, Tittel, Lengde, Utgivelses�r, Lanseringsdato, Beskrivelse, Form, Utgitt) values (" + counter + ", '"
-							+ title + "', " + length + ", " + year + ", " + date + ", '" + description + "', '" + form + "', " + vid + ")";
-					
-					
-					myStmt.executeUpdate(query);
-					System.out.println("Filmen ble lagt til!");
-					
-					
-					
-					myScanner.close();
-					
-				}
-				catch (Exception e) {
-					System.out.println("An error has occured, please try again. " + e);
-				}
-			}
+//			else if (todo == 6) {
+//				try {
+//					Scanner myScanner = new Scanner(System.in);
+//					
+//					System.out.println("Enter title: ");
+//					String title = myScanner.nextLine();
+//					
+//					System.out.println("Enter movie length: ");
+//					String length = myScanner.nextLine();
+//					
+//					System.out.println("Enter release year: ");
+//					String year = myScanner.nextLine();
+//					
+//					System.out.println("Enter release date (YYYYMMDD)");
+//					String date = myScanner.nextLine();
+//					
+//					System.out.println("Enter movie description: ");
+//					String description = myScanner.nextLine();
+//					
+//					System.out.println("Originally for TV, Cinema or Streaming? ");
+//					String form = myScanner.nextLine();
+//					
+//					System.out.println("Released on video? True/False: ");
+//					String vid = myScanner.nextLine();
+//					
+//					ResultSet r2 = myStmt.executeQuery("select * from Media");
+//					int counter = 1;
+//					
+//					while(r2.next()) {
+//						counter+=1;
+//					}
+//					
+//					String query = "insert into Media (MediaID, Tittel, Lengde, Utgivelses�r, Lanseringsdato, Beskrivelse, Form, Utgitt) values (" + counter + ", '"
+//							+ title + "', " + length + ", " + year + ", " + date + ", '" + description + "', '" + form + "', " + vid + ")";
+//					
+//					
+//					myStmt.executeUpdate(query);
+//					System.out.println("Filmen ble lagt til!");
+//					
+//					
+//					
+//					myScanner.close();
+//					
+//				}
+//				catch (Exception e) {
+//					System.out.println("An error has occured, please try again. " + e);
+//				}
+//			}
 			
 			//Finne hvilke filmselskap som lager flest filmer innen hver sjanger.
 			else if (todo == 3) {
