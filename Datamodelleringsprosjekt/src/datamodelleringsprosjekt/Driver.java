@@ -287,6 +287,7 @@ public class Driver {
 		catch (Exception exc) {
 			exc.printStackTrace();
 		}
+		System.out.println("Bare for å pushe");
 
 	}
 
