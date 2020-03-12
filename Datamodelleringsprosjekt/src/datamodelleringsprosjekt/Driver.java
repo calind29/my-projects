@@ -240,8 +240,39 @@ public class Driver {
 			//Sette inn en ny anmeldelse av en episode av en serie.
 			else if (todo == 5) {
 				try {
+					Scanner lastScn = new Scanner(System.in);
+					System.out.println("Enter User name, Serie name, Season, Episode, Rating, Review");
+					String userName = lastScn.nextLine();
+					String name = lastScn.nextLine();
+					int season = lastScn.nextInt();
+					int Ep = lastScn.nextInt();
+					String rating = lastScn.nextLine();
+					String review = lastScn.nextLine();
 					
-				}
+					ResultSet myRs5 = myStmt.executeQuery("select * from Bruker");
+					ResultSet myRs6 = myStmt.executeQuery("select * from Media");
+					ResultSet myRs7 = myStmt.executeQuery("select * from Sesong");
+					ResultSet myRs8 = myStmt.executeQuery("select * from Serie");
+					
+					int userID = 0;
+					int mediaID = 0;
+					
+					while (myRs5.next()) {
+						if (userName.equals(myRs5.getString("Brukernavn"))) {
+							userID = myRs5.getInt("BrukerID");
+						}
+					}
+					while (myRs6.next()) {
+						if (name.equals(myRs6.getString("Tittel"))) {
+							mediaID = myRs6.getInt("MediaID");
+						}
+					}
+					while (myRs7.next()) {
+						if (mediaID == myRs7.getInt("MediaID") && season == myRs7.getInt("SesongNr") && Ep == myRs7.getInt("EpisodeNr")) {
+							String sq5 = "insert into Anmeldelse" + "(BrukerID, MediaID, Rating, Beskrivelse)" + " values ('"+userID+"','"+mediaID+"','"+rating+"','"+review+"')";
+							}
+						}
+					}				
 				catch (Exception e) {
 					System.out.println("Error " + e);
 				}
